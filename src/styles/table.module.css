@@ -1,0 +1,23 @@
+.tableContainer {
+    overflow-x: auto;
+    white-space: nowrap;
+    max-height: 500px; /* Контролируемая высота */
+    background-color: white; /* Убедитесь, что фон совпадает с остальной частью страницы */
+    border-top: 1px solid #dee2e6; /* Граница сверху для разделения */
+}
+.table {
+    margin-bottom: 0;
+    width: 100%; /* Таблица занимает полную ширину контейнера */;
+}
+.table td, .table th {
+    padding: 0.5rem;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 150px;
+}
+
+.table th, .table td {
+    min-width: 100px;
+}

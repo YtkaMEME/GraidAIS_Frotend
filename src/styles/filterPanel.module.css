@@ -1,0 +1,30 @@
+.buttonBox{
+    width: 100%;
+    background-color: white;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonBox button{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.HeaderBox{
+    width: 100%;
+    background-color: white;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.HeaderBox h4{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
