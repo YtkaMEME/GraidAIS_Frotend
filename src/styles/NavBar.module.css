@@ -46,3 +46,7 @@
     overflow-y: auto;
     background-color: white;
 }
+
+#filterBtn{
+    margin-left: 20px;
+}
