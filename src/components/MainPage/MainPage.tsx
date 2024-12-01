@@ -49,8 +49,8 @@ const MainPage = ({columns, data, uniqueFilter}) => {
 
         let allInputs = document.querySelectorAll(".inputFilter")
         allInputs.forEach((oneInput)=>{
-            let value = oneInput.value
-            let name = oneInput.placeholder
+            let value = oneInput["value"]
+            let name = oneInput["placeholder"]
             if(value === "") {
                 delete allFilters[name]
                 return
