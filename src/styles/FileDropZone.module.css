@@ -1,0 +1,52 @@
+.dropZone {
+    margin: 0 auto;
+    width: 90%;
+    min-height: 400px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+}
+
+.fileList {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.fileItem {
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 100px; /* фиксированная ширина для всех файлов */
+    text-align: center;
+}
+
+.fileIcon {
+    width: 80px; /* фиксированная ширина и высота для всех иконок */
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.fileName {
+    margin-top: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.removeButton {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 70%;
+    cursor: pointer;
+}

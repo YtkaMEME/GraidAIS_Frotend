@@ -3,6 +3,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import NavBar from "../NavBar/NavBar";
 import Table from "../Table/Table";
 import DownloadButton from "../DownLoadButton/downLoadButton";
+import FileDropZone from "../FileDropZone/FileDropZone";
+import style from "../../styles/NavBar.module.css";
+import FilterPanel from "../FilterPanel/FilterPanel";
 export async function getServerSideProps({ req, res }) {
     res.setHeader(
         'Cache-Control',
@@ -15,6 +18,7 @@ export async function getServerSideProps({ req, res }) {
 const MainPage = ({columns, data, uniqueFilter}) => {
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [isDragnDropOpen, setDragnDropOpen] = useState(false);
     const filterRef = useRef(null);
 
     const [allFilters, setAllFilters] = useState({})
@@ -29,6 +33,10 @@ const MainPage = ({columns, data, uniqueFilter}) => {
         else
             overlay.classList.remove('active');
 
+    };
+
+    const handleDragnDropToggle = () => {
+        setDragnDropOpen(!isDragnDropOpen);
     };
 
     const handleClickOutside = (event) => {
@@ -71,36 +79,46 @@ const MainPage = ({columns, data, uniqueFilter}) => {
         };
     }, []);
 
-    // const handleChangeFilter = (e) =>{
-    //     const target = e.target;
-    //     changeFilterFromInput(target)
-    // }
-    //
-    // function changeFilterFromInput(inputElem) {
-    //     console.log("Hi")
-    //     let value = inputElem.value
-    //     let name = inputElem.placeholder
-    //     allFilters[name] = value
-    //     if(!value)
-    //         delete allFilters[name]
-    //
-    //     setAllFilters(allFilters)
-    // }
+    if  (isDragnDropOpen){
+        return (<>
+            <NavBar title={"Audience Rating"}
+                    handleDragnDropToggle={handleDragnDropToggle}
+                    isDragnDropOpen = {isDragnDropOpen}/>
+            <FileDropZone />
+        </>);
+    }
+    else{
+        return (
+            <>
+                <NavBar title={"Audience Rating"}
+                        handleDragnDropToggle={handleDragnDropToggle}
+                        isDragnDropOpen = {isDragnDropOpen}
+                ></NavBar>
+                <div className="container d-flex flex-row-reverse mb-3">
+                    <button type="button" onClick={handleFilterToggle}
+                            className={"btn btn-primary"}>Фильтры
+                    </button>
+                </div>
 
-    return (
-        <>
-            <NavBar title={"Красивое название 2"} columns = {columns}
-                    handleFilterToggle = {handleFilterToggle}
-                    filterRef = {filterRef}
-                    sendData = {sendData} isFilterOpen = {isFilterOpen}
-                    allFilters = {allFilters} uniqueFilter = {uniqueFilter}
-            ></NavBar>
-            <Table columns={columns} data={state_data}/>
-            <div className="d-flex flex-row-reverse m-5 mb-0">
-                <DownloadButton allFilters = {allFilters}/>
-            </div>
-        </>
-    );
+                <Table columns={columns} data={state_data}/>
+                <div className="container d-flex flex-row-reverse mt-0">
+                    <DownloadButton allFilters={allFilters}/>
+                </div>
+                <div id="filterPanel"
+                     className={isFilterOpen ? `${style.filterPanel} ${style.active} ${style.containerForFilters}` : `${style.filterPanel}`}
+                     ref={filterRef}>
+                    <FilterPanel
+                        columns={columns}
+                        onButtonClick={sendData}
+                        uniqueFilter={uniqueFilter}
+                    />
+                </div>
+                <div id="overlay"
+                     className={isFilterOpen ? `${style.overlay} ${style.active}` : `${style.overlay}`}>
+                </div>
+            </>
+        );
+    }
 }
 
 export default MainPage;

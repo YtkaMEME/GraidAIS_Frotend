@@ -47,6 +47,12 @@
     background-color: white;
 }
 
-#filterBtn{
-    margin-left: 20px;
+/*#filterBtn{*/
+/*    margin-left: 20px;*/
+/*}*/
+
+.buttonBlok{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }

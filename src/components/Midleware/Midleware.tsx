@@ -32,29 +32,32 @@ export default function Midleware() {
 
                 tableData = JSON.parse(tableData)
                 columnsData = JSON.parse(columnsData)
-                // uniqueElementsData = JSON.parse(uniqueElementsData)
 
                 setColumns(columnsData);
                 setData(tableData);
                 setUniqueFilter(uniqueElementsData);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
-            } finally {
-                // Отключаем загрузку после того, как все данные получены
-                setLoading(false);
             }
         }
 
         fetchData();
     }, []);
 
-    // Условный рендеринг: отображаем заглушку, пока данные загружаются
+
     if (loading || !columns || !data || !uniqueFilter) {
-        return <div>Loading...</div>;
+        return (
+            <div className="d-flex justify-content-center align-items-center vh-100">
+                <div className="spinner-border" role="status" style={{ width: '5rem', height: '5rem' }}>
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        );
     }
     return (
         <>
-            <MainPage columns={columns} data={data} uniqueFilter={uniqueFilter} />
+            <MainPage columns={columns} data={data} uniqueFilter={uniqueFilter}/>
         </>
     );
 }

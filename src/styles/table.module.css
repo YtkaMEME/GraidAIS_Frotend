@@ -3,7 +3,7 @@
     white-space: nowrap;
     max-height: 500px; /* Контролируемая высота */
     background-color: white; /* Убедитесь, что фон совпадает с остальной частью страницы */
-    border-top: 1px solid #dee2e6; /* Граница сверху для разделения */
+    margin-top: 0;
 }
 .table {
     margin-bottom: 0;
