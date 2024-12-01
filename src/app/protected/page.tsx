@@ -15,7 +15,7 @@ export default function Protected(){
                 return;
             }
 
-            axios.get('http://185.198.152.26/api/protected', {
+            axios.get('https://185.198.152.26/api/protected', {
                 headers: { Authorization: `Bearer ${token}` }
             }).then(response => {
                 setMessage(response.data.message);
