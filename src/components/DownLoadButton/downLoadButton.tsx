@@ -2,7 +2,7 @@ import React from 'react';
 
 const DownloadButton = ({allFilters}) => {
     async function handleDownload(){
-        await fetch('http://127.0.0.1:5000/send_excel/people', {
+        await fetch('http://185.198.152.26/api/send_excel/people', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

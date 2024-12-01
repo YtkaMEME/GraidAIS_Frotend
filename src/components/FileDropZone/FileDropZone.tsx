@@ -66,7 +66,7 @@ const FileDropZone: React.FC = () => {
         formData.append('updateMode', updateMode);
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/upload_files', {
+            const response = await fetch('http://185.198.152.26/api/upload_files', {
                 method: 'POST',
                 body: formData,
             });

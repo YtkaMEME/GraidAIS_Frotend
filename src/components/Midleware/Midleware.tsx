@@ -12,17 +12,17 @@ export default function Midleware() {
         async function fetchData() {
             try {
                 const getColumsNames = async () => {
-                    const res = await fetch(`http://127.0.0.1:5000/get_colum/people`);
+                    const res = await fetch(`http://185.198.152.26/api/get_colum/people`);
                     return await res.json();
                 };
 
                 const getData = async () => {
-                    const res = await fetch(`http://127.0.0.1:5000/get_table/people/100`);
+                    const res = await fetch(`http://185.198.152.26/api/get_table/people/100`);
                     return await res.json();
                 };
 
                 const getUniqueElements = async () => {
-                    const responseElements = await fetch(`http://127.0.0.1:5000/get_unique_elementss/people`);
+                    const responseElements = await fetch(`http://185.198.152.26/api/get_unique_elementss/people`);
                     return await responseElements.json();
                 };
 
