@@ -15,7 +15,7 @@ export default function Page() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://185.198.152.26/api/login', {
+            const response = await axios.post('https://audiencerating.ru/api/login', {
                 username,
                 password
             });

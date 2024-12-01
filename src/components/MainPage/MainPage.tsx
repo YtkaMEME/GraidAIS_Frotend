@@ -58,7 +58,7 @@ const MainPage = ({columns, data, uniqueFilter}) => {
             allFilters[name] = value
         })
         setAllFilters(allFilters)
-        const table_data_resp = await fetch('https://185.198.152.26/api/receive_json/people', {
+        const table_data_resp = await fetch('https://audiencerating.ru/api/receive_json/people', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
