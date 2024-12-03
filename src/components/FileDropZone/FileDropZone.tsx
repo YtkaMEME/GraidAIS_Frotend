@@ -17,7 +17,7 @@ const FileDropZone: React.FC = () => {
 
         const validFiles = droppedFiles.filter((file) => {
             const fileExtension = file.name.split('.').pop()?.toLowerCase();
-            if (fileExtension !== 'csv' && fileExtension !== 'xlsx') {
+            if (fileExtension !== 'csv' && fileExtension !== 'xlsx' && fileExtension !== 'zip') {
                 alert(`Файл ${file.name} имеет неподдерживаемое расширение.`);
                 return false;
             }
