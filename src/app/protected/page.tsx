@@ -8,6 +8,7 @@ import Midleware from "../../components/Midleware/Midleware";
 export default function Protected(){
     const [message, setMessage] = useState('');
     const router = useRouter();
+    let link_url = "https://audiencerating.ru"
         useEffect(() => {
             const token = localStorage.getItem('token');
             if (!token) {
@@ -15,7 +16,7 @@ export default function Protected(){
                 return;
             }
 
-            axios.get('https://audiencerating.ru/api/protected', {
+            axios.get(`${link_url}/api/protected`, {
                 headers: { Authorization: `Bearer ${token}` }
             }).then(response => {
                 setMessage(response.data.message);
@@ -27,7 +28,7 @@ export default function Protected(){
 
     return (
         <>
-            <Midleware/>
+            <Midleware link_url={link_url}/>
         </>
     )
 }

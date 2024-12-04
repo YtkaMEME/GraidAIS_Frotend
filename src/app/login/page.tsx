@@ -11,11 +11,11 @@ export default function Page() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
-
+    let url = "https://audiencerating.ru"
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://audiencerating.ru/api/login', {
+            const response = await axios.post(`${url}/api/login`, {
                 username,
                 password
             });

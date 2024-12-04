@@ -1,8 +1,8 @@
 import React from 'react';
 
-const DownloadButton = ({allFilters}) => {
+const DownloadButton = ({link_url, allFilters}) => {
     async function handleDownload(){
-        await fetch('https://audiencerating.ru/api/send_excel/people', {
+        await fetch(`${link_url}/api/send_excel/people`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

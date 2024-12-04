@@ -15,7 +15,7 @@ export async function getServerSideProps({ req, res }) {
         props: {},
     };
 }
-const MainPage = ({columns, data, uniqueFilter}) => {
+const MainPage = ({link_url, columns, data, uniqueFilter}) => {
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isDragnDropOpen, setDragnDropOpen] = useState(false);
@@ -58,7 +58,7 @@ const MainPage = ({columns, data, uniqueFilter}) => {
             allFilters[name] = value
         })
         setAllFilters(allFilters)
-        const table_data_resp = await fetch('https://audiencerating.ru/api/receive_json/people', {
+        const table_data_resp = await fetch(`${link_url}/api/receive_json/people`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -84,7 +84,7 @@ const MainPage = ({columns, data, uniqueFilter}) => {
             <NavBar title={"Audience Rating"}
                     handleDragnDropToggle={handleDragnDropToggle}
                     isDragnDropOpen = {isDragnDropOpen}/>
-            <FileDropZone />
+            <FileDropZone link_url={link_url}/>
         </>);
     }
     else{
@@ -102,7 +102,7 @@ const MainPage = ({columns, data, uniqueFilter}) => {
 
                 <Table columns={columns} data={state_data}/>
                 <div className="container d-flex flex-row-reverse mt-0">
-                    <DownloadButton allFilters={allFilters}/>
+                    <DownloadButton link_url={link_url} allFilters={allFilters}/>
                 </div>
                 <div id="filterPanel"
                      className={isFilterOpen ? `${style.filterPanel} ${style.active} ${style.containerForFilters}` : `${style.filterPanel}`}

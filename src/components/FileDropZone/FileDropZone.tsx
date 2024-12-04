@@ -7,7 +7,7 @@ interface FileWithPreview {
     preview: string;
 }
 
-const FileDropZone: React.FC = () => {
+const FileDropZone = ({link_url}) => {
     const [files, setFiles] = useState<FileWithPreview[]>([]);
     const [updateMode, setUpdateMode] = useState<string>('True');
 
@@ -66,7 +66,7 @@ const FileDropZone: React.FC = () => {
         formData.append('updateMode', updateMode);
 
         try {
-            const response = await fetch('https://audiencerating.ru/api/upload_files', {
+            const response = await fetch(`${link_url}/api/upload_files`, {
                 method: 'POST',
                 body: formData,
             });

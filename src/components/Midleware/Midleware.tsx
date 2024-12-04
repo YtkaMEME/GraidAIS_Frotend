@@ -2,27 +2,26 @@ import { useEffect, useState, useMemo } from 'react';
 import MainPage from "../MainPage/MainPage";
 import {json} from "node:stream/consumers";
 
-export default function Midleware() {
+export default function Midleware({link_url}) {
     const [columns, setColumns] = useState(null); // Изначально null
     const [data, setData] = useState(null); // Изначально null
     const [uniqueFilter, setUniqueFilter] = useState(null); // Изначально null
     const [loading, setLoading] = useState(true); // Изначально true
-
     useEffect(() => {
         async function fetchData() {
             try {
                 const getColumsNames = async () => {
-                    const res = await fetch(`https://audiencerating.ru/api/get_colum/people`);
+                    const res = await fetch(`${link_url}/api/get_colum/people`);
                     return await res.json();
                 };
 
                 const getData = async () => {
-                    const res = await fetch(`https://audiencerating.ru/api/get_table/people/100`);
+                    const res = await fetch(`${link_url}/api/get_table/people/100`);
                     return await res.json();
                 };
 
                 const getUniqueElements = async () => {
-                    const responseElements = await fetch(`https://audiencerating.ru/api/get_unique_elementss/people`);
+                    const responseElements = await fetch(`${link_url}/api/get_unique_elementss/people`);
                     return await responseElements.json();
                 };
 
@@ -35,7 +34,7 @@ export default function Midleware() {
 
                 setColumns(columnsData);
                 setData(tableData);
-                setUniqueFilter(uniqueElementsData);
+                // setUniqueFilter(uniqueElementsData);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -57,7 +56,7 @@ export default function Midleware() {
     }
     return (
         <>
-            <MainPage columns={columns} data={data} uniqueFilter={uniqueFilter}/>
+            <MainPage link_url={link_url} columns={columns} data={data} uniqueFilter={uniqueFilter}/>
         </>
     );
 }
