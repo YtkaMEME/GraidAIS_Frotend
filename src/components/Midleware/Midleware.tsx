@@ -28,8 +28,6 @@ export default function Midleware({link_url}) {
                 let columnsData = await getColumsNames();
                 let tableData = await getData();
                 // let uniqueElementsData = await getUniqueElements();
-                console.log(columnsData)
-                console.log(tableData)
                 tableData = JSON.parse(tableData)
                 columnsData = JSON.parse(columnsData)
 
