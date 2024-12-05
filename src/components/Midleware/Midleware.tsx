@@ -20,14 +20,14 @@ export default function Midleware({link_url}) {
                     return await res.json();
                 };
 
-                const getUniqueElements = async () => {
-                    const responseElements = await fetch(`${link_url}/api/get_unique_elementss/people`);
-                    return await responseElements.json();
-                };
+                // const getUniqueElements = async () => {
+                //     const responseElements = await fetch(`${link_url}/api/get_unique_elementss/people`);
+                //     return await responseElements.json();
+                // };
 
                 let columnsData = await getColumsNames();
                 let tableData = await getData();
-                let uniqueElementsData = await getUniqueElements();
+                // let uniqueElementsData = await getUniqueElements();
 
                 tableData = JSON.parse(tableData)
                 columnsData = JSON.parse(columnsData)
