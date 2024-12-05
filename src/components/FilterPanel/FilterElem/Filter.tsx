@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-function Filter({columnName, id, uniqueFilter}) {
+function Filter({columnName, id}) {
 
     // useEffect(() => {
     //     let parentNodeForCurrent = document.getElementById(`filterName${id}`).parentNode

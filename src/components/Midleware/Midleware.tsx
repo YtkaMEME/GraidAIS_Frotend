@@ -28,7 +28,8 @@ export default function Midleware({link_url}) {
                 let columnsData = await getColumsNames();
                 let tableData = await getData();
                 // let uniqueElementsData = await getUniqueElements();
-
+                console.log(columnsData)
+                console.log(tableData)
                 tableData = JSON.parse(tableData)
                 columnsData = JSON.parse(columnsData)
 
@@ -41,11 +42,11 @@ export default function Midleware({link_url}) {
             }
         }
 
-        fetchData();
+        fetchData()
     }, []);
 
 
-    if (loading || !columns || !data || !uniqueFilter) {
+    if (loading || !columns || !data) {
         return (
             <div className="d-flex justify-content-center align-items-center vh-100">
                 <div className="spinner-border" role="status" style={{ width: '5rem', height: '5rem' }}>
@@ -56,7 +57,7 @@ export default function Midleware({link_url}) {
     }
     return (
         <>
-            <MainPage link_url={link_url} columns={columns} data={data} uniqueFilter={uniqueFilter}/>
+            <MainPage link_url={link_url} columns={columns} data={data}/>
         </>
     );
 }

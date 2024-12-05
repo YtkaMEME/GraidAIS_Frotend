@@ -2,17 +2,16 @@ import React, { useMemo } from "react";
 import Filter from "./FilterElem/Filter";
 import style from "../../styles/filterPanel.module.css"
 
-export default function FilterPanel({ columns, onButtonClick, uniqueFilter }) {
+export default function FilterPanel({ columns, onButtonClick}) {
     const renderedFilters = useMemo(() => {
         return columns.map((columnName, index) => (
             <Filter
                 columnName={columnName}
                 key={index}
                 id={index}
-                uniqueFilter={uniqueFilter[columnName]}
             />
         ));
-    }, [columns, uniqueFilter]);
+    }, [columns]);
 
     return (
         <>

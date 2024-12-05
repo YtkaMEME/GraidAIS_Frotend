@@ -15,7 +15,7 @@ export async function getServerSideProps({ req, res }) {
         props: {},
     };
 }
-const MainPage = ({link_url, columns, data, uniqueFilter}) => {
+const MainPage = ({link_url, columns, data}) => {
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isDragnDropOpen, setDragnDropOpen] = useState(false);
@@ -110,7 +110,6 @@ const MainPage = ({link_url, columns, data, uniqueFilter}) => {
                     <FilterPanel
                         columns={columns}
                         onButtonClick={sendData}
-                        uniqueFilter={uniqueFilter}
                     />
                 </div>
                 <div id="overlay"
