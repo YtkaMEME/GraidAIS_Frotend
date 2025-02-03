@@ -11,7 +11,7 @@ export default function Page() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
-    let url = "audiencerating.ru"
+    let url = "https://audiencerating.ru"
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
