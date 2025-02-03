@@ -6,7 +6,8 @@ import DownloadButton from "../DownLoadButton/downLoadButton";
 import FileDropZone from "../FileDropZone/FileDropZone";
 import style from "../../styles/NavBar.module.css";
 import FilterPanel from "../FilterPanel/FilterPanel";
-export async function getServerSideProps({ req, res }) {
+import SamplePanel from "../SamplePanel/SamplePanel";
+export async function getServerSideProps({res }) {
     res.setHeader(
         'Cache-Control',
         'public, s-maxage=10, stale-while-revalidate=59'
@@ -15,18 +16,35 @@ export async function getServerSideProps({ req, res }) {
         props: {},
     };
 }
-const MainPage = ({link_url, columns, data}) => {
-
+const MainPage = ({link_url, columns, data, uniqueFilter}) => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [isSamplerOpen, setIsSampleOpen] = useState(false);
     const [isDragnDropOpen, setDragnDropOpen] = useState(false);
+    const [selectedCheckboxes, setSelectedCheckboxes] = useState(
+        columns.reduce((acc, columnName) => {
+            acc[`${columnName}`] = true;
+            return acc;
+        }, {})
+    );
+
     const filterRef = useRef(null);
+    const SampleRef = useRef(null);
 
     const [allFilters, setAllFilters] = useState({})
-
-    const [state_data, setData] = useState(data)
+    const [stateData, setData] = useState(data)
 
     const handleFilterToggle = () => {
         setIsFilterOpen(!isFilterOpen);
+        const overlay = document.getElementById('overlay');
+        if(isFilterOpen)
+            overlay.classList.toggle('active');
+        else
+            overlay.classList.remove('active');
+
+    };
+
+    const handleSampleToggle = () => {
+        setIsSampleOpen(!isSamplerOpen);
         const overlay = document.getElementById('overlay');
         if(isFilterOpen)
             overlay.classList.toggle('active');
@@ -43,6 +61,9 @@ const MainPage = ({link_url, columns, data}) => {
         if (filterRef.current && !filterRef.current.contains(event.target)) {
             setIsFilterOpen(false);
         }
+        if (SampleRef.current && !SampleRef.current.contains(event.target)) {
+            setIsSampleOpen(false);
+        }
     };
 
     async function sendData() {
@@ -58,7 +79,15 @@ const MainPage = ({link_url, columns, data}) => {
             allFilters[name] = value
         })
         setAllFilters(allFilters)
-        const table_data_resp = await fetch(`${link_url}/api/receive_json/people`, {
+
+        if("ВозрастMAX" in allFilters && "ВозрастMIN" in allFilters){
+            if (allFilters["ВозрастMAX"] < allFilters["ВозрастMIN"]) {
+                alert(`Возраст не может быть от ${allFilters["ВозрастMIN"]} до ${allFilters["ВозрастMAX"]}\nИзмените фильтр и попробуйте снова!`)
+                return;
+            }
+        }
+
+        const table_data_resp = await fetch(`${link_url}/api/receive_json/people/100`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -79,7 +108,8 @@ const MainPage = ({link_url, columns, data}) => {
         };
     }, []);
 
-    if  (isDragnDropOpen){
+    if  (isDragnDropOpen || Object.keys(columns).length === 0 || Object.keys(data).length === 0 ||
+        Object.keys(uniqueFilter).length === 0) {
         return (<>
             <NavBar title={"Audience Rating"}
                     handleDragnDropToggle={handleDragnDropToggle}
@@ -92,7 +122,7 @@ const MainPage = ({link_url, columns, data}) => {
             <>
                 <NavBar title={"Audience Rating"}
                         handleDragnDropToggle={handleDragnDropToggle}
-                        isDragnDropOpen = {isDragnDropOpen}
+                        isDragnDropOpen={isDragnDropOpen}
                 ></NavBar>
                 <div className="container d-flex flex-row-reverse mb-3">
                     <button type="button" onClick={handleFilterToggle}
@@ -100,20 +130,37 @@ const MainPage = ({link_url, columns, data}) => {
                     </button>
                 </div>
 
-                <Table columns={columns} data={state_data}/>
-                <div className="container d-flex flex-row-reverse mt-0">
-                    <DownloadButton link_url={link_url} allFilters={allFilters}/>
+                <Table columns={columns} data={stateData}/>
+
+                <div className="container d-flex flex-row-reverse mt-0 gap-3">
+                    <DownloadButton link_url={link_url} allFilters={allFilters} selectedCheckboxes = {selectedCheckboxes}/>
+                    <button type="button" onClick={handleSampleToggle} className={"btn btn-primary"}>
+                        Настройка шаблона скачивания
+                    </button>
                 </div>
+
                 <div id="filterPanel"
                      className={isFilterOpen ? `${style.filterPanel} ${style.active} ${style.containerForFilters}` : `${style.filterPanel}`}
                      ref={filterRef}>
                     <FilterPanel
                         columns={columns}
                         onButtonClick={sendData}
+                        uniqueFilter = {uniqueFilter}
                     />
                 </div>
+
+                <div id="SamplePanel"
+                     className={isSamplerOpen ? `${style.SamplePanel} ${style.active} ${style.containerForFilters}` : `${style.SamplePanel}`}
+                     ref={SampleRef}>
+                    <SamplePanel
+                        columns={columns}
+                        setSelectedCheckboxes = {setSelectedCheckboxes}
+                        selectedCheckboxes = {selectedCheckboxes}
+                    />
+                </div>
+
                 <div id="overlay"
-                     className={isFilterOpen ? `${style.overlay} ${style.active}` : `${style.overlay}`}>
+                     className={isFilterOpen || isSamplerOpen? `${style.overlay} ${style.active}` : `${style.overlay}`}>
                 </div>
             </>
         );

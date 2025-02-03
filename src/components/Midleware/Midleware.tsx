@@ -1,12 +1,12 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import MainPage from "../MainPage/MainPage";
-import {json} from "node:stream/consumers";
 
-export default function Midleware({link_url}) {
-    const [columns, setColumns] = useState(null); // Изначально null
-    const [data, setData] = useState(null); // Изначально null
-    const [uniqueFilter, setUniqueFilter] = useState(null); // Изначально null
-    const [loading, setLoading] = useState(true); // Изначально true
+export default function Midleware({ link_url }) {
+    const [columns, setColumns] = useState(null);
+    const [data, setData] = useState(null);
+    const [uniqueFilter, setUniqueFilter] = useState(null);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -20,29 +20,55 @@ export default function Midleware({link_url}) {
                     return await res.json();
                 };
 
-                // const getUniqueElements = async () => {
-                //     const responseElements = await fetch(`${link_url}/api/get_unique_elementss/people`);
-                //     return await responseElements.json();
-                // };
+                const getUniqueElements = async () => {
+                    const columsDrop = [
+                        "Пол",
+                        "Регион подачи (пользователя)",
+                        "Регион проживания",
+                        "Город проживания",
+                        "Регион подачи (из заявки)",
+                        "Мероприятие",
+                        "Часть мероприятия",
+                        "Направление",
+                        "Статус заявки",
+                        "Получил ли грант",
+                        "Маркеры участия"
+                    ];
 
-                let columnsData = await getColumsNames();
-                let tableData = await getData();
-                // let uniqueElementsData = await getUniqueElements();
-                tableData = JSON.parse(tableData)
-                columnsData = JSON.parse(columnsData)
+                    const responseElements = await fetch(`${link_url}/api/get_unique_elements/people`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ columsDrop })
+                    });
 
-                setColumns(columnsData);
-                setData(tableData);
-                // setUniqueFilter(uniqueElementsData);
+                    return await responseElements.json();
+                };
+
+                // Запускаем все запросы параллельно
+                const [columnsData, tableData, uniqueElementsData] = await Promise.all([
+                    getColumsNames(),
+                    getData(),
+                    getUniqueElements()
+                ]);
+
+                // Преобразуем данные (если необходимо)
+                setColumns(JSON.parse(columnsData));
+                setData(JSON.parse(tableData));
+                setUniqueFilter(uniqueElementsData);
+
+                // После получения данных, устанавливаем состояние загрузки
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoading(false); // В случае ошибки убираем индикатор загрузки
             }
         }
 
-        fetchData()
-    }, []);
-
+        fetchData();
+    }, [link_url]);
 
     if (loading || !columns || !data) {
         return (
@@ -53,9 +79,10 @@ export default function Midleware({link_url}) {
             </div>
         );
     }
+
     return (
         <>
-            <MainPage link_url={link_url} columns={columns} data={data}/>
+            <MainPage link_url={link_url} columns={columns} data={data} uniqueFilter={uniqueFilter} />
         </>
     );
 }

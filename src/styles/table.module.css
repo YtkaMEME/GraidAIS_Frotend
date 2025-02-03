@@ -15,9 +15,22 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    max-width: 150px;
+    max-width: 80px;
 }
 
 .table th, .table td {
-    min-width: 100px;
+    min-width: 70px;
+}
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; /* измените при необходимости */
+}
+
+.ellipsisHeader {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* измените при необходимости */
 }

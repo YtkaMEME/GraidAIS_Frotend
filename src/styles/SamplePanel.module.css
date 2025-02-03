@@ -1,0 +1,74 @@
+.buttonBox{
+    width: 100%;
+    background-color: white;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonBox button{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.HeaderBox{
+    width: 100%;
+    background-color: white;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.HeaderBox h4{
+    margin-top: 1rem;
+}
+
+.custom_checkbox input[type="checkbox"] {
+    appearance: none;
+    background-color: #f1f1f1;
+    margin: 0;
+    font: inherit;
+    color: #0d6efd;
+    width: 1.5em;
+    height: 1.5em;
+    border: 0.15em solid #0d6efd;
+    border-radius: 0.25em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+}
+
+.custom_checkbox input[type="checkbox"]::before {
+    content: "";
+    width: 1em;
+    height: 1em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 30%, 75% 0, 50% 25%);
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.custom_checkbox input[type="checkbox"]:checked::before {
+    background-color: #0d6efd;
+}
+
+.custom_checkbox label {
+    margin-left: 0.5em;
+    color: #333;
+}
+
+.checkbox_panel {
+    padding: 1.5em;
+    border: 1px solid #ddd;
+    border-radius: 0.5em;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn_custom {
+    margin-top: 1rem;
+}

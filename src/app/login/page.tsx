@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/Login.module.css';
 
-
+// https://audiencerating.ru
 export default function Page() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
-    let url = "https://audiencerating.ru"
+    let url = "http://127.0.0.1:5003"
     const handleLogin = async (e) => {
         e.preventDefault();
         try {

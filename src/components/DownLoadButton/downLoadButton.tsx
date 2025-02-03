@@ -1,14 +1,15 @@
 import React from 'react';
 
-const DownloadButton = ({link_url, allFilters}) => {
+const DownloadButton = ({link_url, allFilters, selectedCheckboxes}) => {
     async function handleDownload(){
+        // console.log(selectedCheckboxes)
         await fetch(`${link_url}/api/send_excel/people`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({allFilters})
+            body: JSON.stringify({allFilters, selectedCheckboxes})
         }).then(response => {
                 if (response.ok) {
                     return response.blob();

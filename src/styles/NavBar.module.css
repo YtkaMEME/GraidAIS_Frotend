@@ -47,12 +47,30 @@
     background-color: white;
 }
 
-/*#filterBtn{*/
-/*    margin-left: 20px;*/
-/*}*/
 
 .buttonBlok{
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+
+.SamplePanel {
+    position: fixed;
+    top: 0;
+    right: -50%;
+    width: 50%;
+    height: 100%;
+    background-color: white;
+    transition: right 0.4s ease;
+    z-index: 1050;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.5);
+
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.SamplePanel.active {
+    right: 0;
+    width: 30%;
+    max-height: 100%;
 }

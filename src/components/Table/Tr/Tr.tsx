@@ -1,13 +1,14 @@
 import React from "react";
+import style from "../../../styles/table.module.css";
 
-export default function Tr({ tdList=[]}){
+export default function Tr({ tdList = [] }) {
     return (
         <tr>
             {tdList.map((elem, index) => {
-                if (typeof elem === 'string' && (elem.startsWith('http') || elem.startsWith('www'))) {
+                if (typeof elem === 'string') {
                     return (
-                        <td key={index}>
-                            <a href={elem} target="_blank" rel="noopener noreferrer">Смотреть</a>
+                        <td key={index} title={elem} className={style.ellipsis}>
+                            {elem}
                         </td>
                     );
                 }
