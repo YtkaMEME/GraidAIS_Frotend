@@ -8,7 +8,7 @@ import Midleware from "../../components/Midleware/Midleware";
 export default function Protected(){
     const [message, setMessage] = useState('');
     const router = useRouter();
-    let link_url = "http://127.0.0.1:5003"
+    let link_url = "audiencerating.ru"
         useEffect(() => {
             const token = localStorage.getItem('token');
             if (!token) {
