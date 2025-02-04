@@ -1,11 +1,13 @@
 import React, { memo, useState, useEffect } from "react";
 
 function Filter({ columnName, id, uniqueFilter }) {
-    const [minAge, setMinAge] = useState(18);
-    const [maxAge, setMaxAge] = useState(60);
+    const [minAge, setMinAge] = useState(0);
+    const [maxAge, setMaxAge] = useState(100);
     const [dropdownValues, setDropdownValues] = useState([]);
 
-    // Следим за изменениями uniqueElems и обновляем dropdownValues
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
     useEffect(() => {
         if (uniqueFilter && uniqueFilter[columnName]) {
             setDropdownValues(uniqueFilter[columnName]);
@@ -20,7 +22,14 @@ function Filter({ columnName, id, uniqueFilter }) {
         setMaxAge(event.target.value);
     };
 
-    // Определяем, является ли колонка выпадающим списком
+    const handleStartDateChange = (e) => {
+        setStartDate(e.target.value);
+    };
+
+    const handleEndDateChange = (e) => {
+        setEndDate(e.target.value);
+    };
+
     const isDropdownFilter = [
         "Пол",
         "Регион подачи (пользователя)",
@@ -35,7 +44,6 @@ function Filter({ columnName, id, uniqueFilter }) {
         "Маркеры участия"
     ].includes(columnName);
 
-    // Фильтр для диапазона возраста
     if (columnName === "Возраст") {
         return (
             <div className="container mt-5">
@@ -76,7 +84,42 @@ function Filter({ columnName, id, uniqueFilter }) {
         );
     }
 
-    // Если колонка является выпадающим списком
+    if (columnName === "Последнее обновление") {
+        return (
+            <div className="container mt-5">
+                <label className="form-label" id={`form-label${id}`} htmlFor={`filterName${id}`}>
+                    {columnName}
+                </label>
+                <div className="mb-3">
+                    <label htmlFor={`startDate${id}`} className="form-label small">
+                        Дата от:
+                    </label>
+                    <input
+                        type="datetime-local"
+                        className="form-control inputFilter"
+                        id={`startDate${id}`}
+                        placeholder={`DATESTART`}
+                        value={startDate}
+                        onChange={handleStartDateChange}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor={`endDate${id}`} className="form-label small">
+                        Дата до:
+                    </label>
+                    <input
+                        type="datetime-local"
+                        className="form-control inputFilter"
+                        placeholder={`DATEEND`}
+                        id={`endDate${id}`}
+                        value={endDate}
+                        onChange={handleEndDateChange}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     if (isDropdownFilter) {
         return (
             <div className="container mt-5">
@@ -95,7 +138,6 @@ function Filter({ columnName, id, uniqueFilter }) {
         );
     }
 
-    // Обычный текстовый фильтр
     return (
         <div className="container mt-5">
             <label className="form-label" id={`form-label${id}`} htmlFor={`filterName${id}`}>
