@@ -7,9 +7,10 @@ interface FileWithPreview {
     preview: string;
 }
 
-const FileDropZone = ({link_url}) => {
+const FileDropZone = ({ link_url }) => {
     const [files, setFiles] = useState<FileWithPreview[]>([]);
     const [updateMode, setUpdateMode] = useState<string>('True');
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
@@ -55,9 +56,10 @@ const FileDropZone = ({link_url}) => {
             return;
         }
 
+        setLoading(true);
+
         const formData = new FormData();
         files.forEach((fileWithPreview, index) => {
-            // Переименовываем файл в номер с сохранением расширения
             const fileExtension = fileWithPreview.file.name.split('.').pop();
             const newFileName = `${index + 1}.${fileExtension}`;
             formData.append('files', new File([fileWithPreview.file], newFileName, { type: fileWithPreview.file.type }));
@@ -80,12 +82,23 @@ const FileDropZone = ({link_url}) => {
         } catch (error) {
             console.error('Ошибка:', error);
             alert('Ошибка при подключении к серверу');
+        } finally {
+            setLoading(false); // выключаем загрузку
         }
     };
 
     return (
         <>
-
+            {loading && (
+                <div className={styles.loadingOverlay}>
+                    <div className="d-flex justify-content-center align-items-center vh-100">
+                        <div className="spinner-border" role="status"
+                             style={{width: '5rem', height: '5rem', color: 'white'}}>
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className={styles.dropZone}
                  onDrop={handleDrop}
                  onDragOver={handleDragOver}>

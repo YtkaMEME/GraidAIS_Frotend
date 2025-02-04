@@ -7,6 +7,7 @@ import FileDropZone from "../FileDropZone/FileDropZone";
 import style from "../../styles/NavBar.module.css";
 import FilterPanel from "../FilterPanel/FilterPanel";
 import SamplePanel from "../SamplePanel/SamplePanel";
+import styles from "../../styles/FileDropZone.module.css";
 export async function getServerSideProps({res }) {
     res.setHeader(
         'Cache-Control',
@@ -26,6 +27,7 @@ const MainPage = ({link_url, columns, data, uniqueFilter}) => {
             return acc;
         }, {})
     );
+    const [loading, setLoading] = useState<boolean>(false);
 
     const filterRef = useRef(null);
     const SampleRef = useRef(null);
@@ -120,6 +122,16 @@ const MainPage = ({link_url, columns, data, uniqueFilter}) => {
     else{
         return (
             <>
+                {loading && (
+                    <div className={styles.loadingOverlay}>
+                        <div className="d-flex justify-content-center align-items-center vh-100">
+                            <div className="spinner-border" role="status"
+                                 style={{width: '5rem', height: '5rem', color: 'white'}}>
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 <NavBar title={"Audience Rating"}
                         handleDragnDropToggle={handleDragnDropToggle}
                         isDragnDropOpen={isDragnDropOpen}
@@ -133,7 +145,7 @@ const MainPage = ({link_url, columns, data, uniqueFilter}) => {
                 <Table columns={columns} data={stateData}/>
 
                 <div className="container d-flex flex-row-reverse mt-0 gap-3">
-                    <DownloadButton link_url={link_url} allFilters={allFilters} selectedCheckboxes = {selectedCheckboxes}/>
+                    <DownloadButton link_url={link_url} allFilters={allFilters} selectedCheckboxes = {selectedCheckboxes} setLoading = {setLoading}/>
                     <button type="button" onClick={handleSampleToggle} className={"btn btn-primary"}>
                         Настройка шаблона скачивания
                     </button>

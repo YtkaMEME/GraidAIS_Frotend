@@ -1,8 +1,8 @@
 import React from 'react';
 
-const DownloadButton = ({link_url, allFilters, selectedCheckboxes}) => {
+const DownloadButton = ({link_url, allFilters, selectedCheckboxes, setLoading}) => {
     async function handleDownload(){
-        // console.log(selectedCheckboxes)
+        setLoading(true);
         await fetch(`${link_url}/api/send_excel/people`, {
             method: 'POST',
             headers: {
@@ -26,7 +26,8 @@ const DownloadButton = ({link_url, allFilters, selectedCheckboxes}) => {
                 a.click();
                 window.URL.revokeObjectURL(url);
             })
-            .catch(error => console.error('There was an error downloading the file:', error));
+            .catch(error => console.error('There was an error downloading the file:', error))
+            .finally(() => setLoading(false));
     };
 
     return (
