@@ -11,6 +11,14 @@ const FileDropZone = ({ link_url }) => {
     const [files, setFiles] = useState<FileWithPreview[]>([]);
     const [updateMode, setUpdateMode] = useState<string>('True');
     const [loading, setLoading] = useState<boolean>(false);
+    const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleString());
+
+    const get_date = async () => {
+        const res = await fetch(`${link_url}/api/get_last_update`);
+        let response = await res.json();
+        setLastUpdated(response);
+    };
+    get_date()
 
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
@@ -99,6 +107,10 @@ const FileDropZone = ({ link_url }) => {
                     </div>
                 </div>
             )}
+            <div className={`${styles.dateUpdateContainer} container mt-3 d-flex py-3 mb-4 border-bottom`}>
+                <span className={styles.dateLabel}>Дата последнего обновления базы данных: </span>
+                <span className={styles.date}>{lastUpdated}</span>
+            </div>
             <div className={styles.dropZone}
                  onDrop={handleDrop}
                  onDragOver={handleDragOver}>
