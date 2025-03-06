@@ -4,7 +4,6 @@ function Filter({ columnName, id, uniqueFilter }) {
     const [minAge, setMinAge] = useState(0);
     const [maxAge, setMaxAge] = useState(100);
     const [dropdownValues, setDropdownValues] = useState([]);
-
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
@@ -15,11 +14,13 @@ function Filter({ columnName, id, uniqueFilter }) {
     }, [uniqueFilter, columnName]);
 
     const handleMinAgeChange = (event) => {
-        setMinAge(event.target.value);
+        const newMinAge = Number(event.target.value);
+        setMinAge(Math.min(newMinAge, maxAge));
     };
 
     const handleMaxAgeChange = (event) => {
-        setMaxAge(event.target.value);
+        const newMaxAge = Number(event.target.value);
+        setMaxAge(Math.max(newMaxAge, minAge));
     };
 
     const handleStartDateChange = (e) => {
@@ -60,8 +61,8 @@ function Filter({ columnName, id, uniqueFilter }) {
                         id={`minAge${id}`}
                         min="0"
                         max="100"
+                        placeholder = "ВозрастMIN"
                         value={minAge}
-                        placeholder={`${columnName}MIN`}
                         onChange={handleMinAgeChange}
                     />
                 </div>
@@ -75,8 +76,8 @@ function Filter({ columnName, id, uniqueFilter }) {
                         id={`maxAge${id}`}
                         min="0"
                         max="100"
+                        placeholder = "ВозрастMAX"
                         value={maxAge}
-                        placeholder={`${columnName}MAX`}
                         onChange={handleMaxAgeChange}
                     />
                 </div>
@@ -98,7 +99,6 @@ function Filter({ columnName, id, uniqueFilter }) {
                         type="datetime-local"
                         className="form-control inputFilter"
                         id={`startDate${id}`}
-                        placeholder={`DATESTART`}
                         value={startDate}
                         onChange={handleStartDateChange}
                     />
@@ -110,7 +110,6 @@ function Filter({ columnName, id, uniqueFilter }) {
                     <input
                         type="datetime-local"
                         className="form-control inputFilter"
-                        placeholder={`DATEEND`}
                         id={`endDate${id}`}
                         value={endDate}
                         onChange={handleEndDateChange}
@@ -146,9 +145,8 @@ function Filter({ columnName, id, uniqueFilter }) {
             <input
                 type="text"
                 className="inputFilter form-control"
-                aria-expanded="false"
                 id={`filterName${id}`}
-                placeholder={`${columnName}`}
+                placeholder={columnName}
                 name={`${columnName}${id}`}
             />
         </div>

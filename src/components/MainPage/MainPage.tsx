@@ -83,12 +83,11 @@ const MainPage = ({link_url, columns, data, uniqueFilter}) => {
         setAllFilters(allFilters)
 
         if("ВозрастMAX" in allFilters && "ВозрастMIN" in allFilters){
-            if (allFilters["ВозрастMAX"] < allFilters["ВозрастMIN"]) {
-                alert(`Возраст не может быть от ${allFilters["ВозрастMIN"]} до ${allFilters["ВозрастMAX"]}\nИзмените фильтр и попробуйте снова!`)
+            if (Number(allFilters["ВозрастMAX"]) < Number(allFilters["ВозрастMIN"])) {
+                alert(`Возраст не может быть от ${allFilters["ВозрастMIN"]} до ${allFilters["ВозрастMAX"]}\nИзмените фильтр и попробуйте снова!`);
                 return;
             }
         }
-
         const table_data_resp = await fetch(`${link_url}/api/receive_json/people/100`, {
             method: 'POST',
             headers: {
