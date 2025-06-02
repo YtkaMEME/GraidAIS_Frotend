@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GraidAIS Frontend
 
-## Getting Started
+**GraidAIS Frontend** — клиентская часть веб-приложения для преобразования табличных данных в полноценную базу данных с расширенными возможностями управления, загрузки, фильтрации и выгрузки данных.
 
-First, run the development server:
+## Описание проекта
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Данный репозиторий содержит frontend-часть системы. Проект реализует:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Систему авторизации пользователей.
+- Механизм загрузки таблиц с помощью drag-and-drop.
+- Логическую визуализацию процесса объединения и обработки загруженных таблиц.
+- Продвинутую систему фильтрации данных в базе.
+- Гибкую систему формирования и скачивания выгрузок из базы с использованием множества параметров.
+- Удобный и понятный пользовательский интерфейс для взаимодействия с системой.
 
-You can start editing the page by modifying `app/page.ts`. The page auto-updates as you edit the file.
+👉 Backend-часть проекта находится в отдельном репозитории:  
+[https://github.com/YtkaMEME/GraidAis_Back](https://github.com/YtkaMEME/GraidAis_Back)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Технологии
 
-## Learn More
+- NEXT.js
+- JavaScript / TypeScript
+- REST API для взаимодействия с backend
+- Drag-and-drop библиотеки для загрузки файлов
+- Адаптивный дизайн
 
-To learn more about Next.js, take a look at the following resources:
+## Основной функционал
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Авторизация и регистрация пользователей.
+- Drag-and-drop загрузка таблиц.
+- Автоматическое объединение таблиц с сохранением максимального объема информации.
+- Продвинутая фильтрация и поиск по данным.
+- Настройка параметров выгрузки данных.
+- Загрузка итоговых файлов по заданным фильтрам.
+- Совместная работа с backend через API.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Запуск проекта
 
-## Deploy on Vercel
+1. Клонировать репозиторий:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    git clone https://github.com/YtkaMEME/GraidAIS_Frotend.git
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. Установить зависимости:
+
+    ```bash
+    npm install
+    ```
+
+3. Запустить проект:
+
+    ```bash
+    npm start dev
+    ```
+
+4. По умолчанию приложение будет доступно по адресу `http://localhost:3000/`
+
+> ⚠️ Обязательно перед запуском убедитесь, что backend-сервер запущен и доступен.
+
+## Скриншоты интерфейса
+
+### Панель авторизации
+
+<img width="901" alt="изображение" src="https://github.com/user-attachments/assets/42bd572b-232d-4641-8677-ece3cd7244b6" />
+
+### Главный экран
+
+<img width="1467" alt="изображение" src="https://github.com/user-attachments/assets/5e6aa8cc-fe39-4f8c-ab21-a9f944d658f3" />
+
+### Панель фильтров
+
+<img width="1470" alt="изображение" src="https://github.com/user-attachments/assets/234d95ba-852d-428f-a780-626eb39ce083" />
+
+### Панель настройки шаблона выгрузки
+
+<img width="1470" alt="изображение" src="https://github.com/user-attachments/assets/9511647a-3088-4ee2-884c-14a7814a9920" />
+
+### Панель загрузки (drag-and-drop)
+
+<img width="1470" alt="изображение" src="https://github.com/user-attachments/assets/273ec75e-5a84-4772-882c-94c4591352c6" />
+
